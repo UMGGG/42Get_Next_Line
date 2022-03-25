@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:28:38 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/03/25 16:39:07 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:40:41 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-
-# ifndef BUFFER_SIZE
-# endif
-
-# ifndef OPEN_MAX
-# endif
 
 char	*get_next_line(int fd);
 char	*ft_strdup(char *s1);
