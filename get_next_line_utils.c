@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:54:10 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/03/23 14:37:49 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:05:21 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	while (1)
-	{
-		if (s[i] == (unsigned char)c)
-			return ((char *)s + i);
-		if (s[i] == '\0')
-		{
-			if ((unsigned char)c == '\0')
-				return ((char *)s + i);
-			else
-				break ;
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	int		len;
 	int		i;
@@ -73,22 +52,20 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
+	if (s1 == NULL && s2 == NULL)
+		return (0);
+	else if (s1 == NULL)
+		return (ft_strdup(s2));
+	else if (s2 == NULL)
+		return (ft_strdup(s1));
 	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (str == 0)
 		return (NULL);
 	while (s1[i] != '\0')
-	{
-		str[j] = s1[i];
-		i++;
-		j++;
-	}
+		str[j++] = s1[i++];
 	i = 0;
 	while (s2[i] != '\0')
-	{
-		str[j] = s2[i];
-		i++;
-		j++;
-	}
+		str[j++] = s2[i++];
 	str[j] = '\0';
 	free(s1);
 	return (str);

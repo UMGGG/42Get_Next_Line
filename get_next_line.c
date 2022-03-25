@@ -6,49 +6,24 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:27:53 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/03/23 15:22:03 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:35:38 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-char	*get_str(int fd, char *str)
+char	*make_line(char *backup)
 {
-	size_t	readsize;
-	char	*readbuf;
-
-	readbuf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (readbuf == NULL)
-		return (0);
-	readsize = 1;
-	while (readsize != 0 && !ft_strchr(str, '\n'))
-	{
-		readsize = read(fd, readbuf, BUFFER_SIZE);
-		if (readsize == -1)
-		{
-			free(readbuf);
-			return (0);
-		}
-		readbuf[readsize] = '\0';
-		str = ft_strjoin(str, readbuf);
-	}
-	free(readbuf);
-	return (str);
-}
-
-char	*give_line(char *backup)
-{
-	size_t	i;
+	int		i;
 	char	*str;
 
 	i = 0;
-	if (backup[i] == '\0')
-		return (0);
-	while (backup[i] != '\0' && backup[i] != '\n')
+	while (backup[i] != '\n' && backup[i] != '\0')
 		i++;
+	if (backup[i] == '\0')
+		return (NULL);
 	str = malloc(sizeof(char) * (i + 1));
-	if (str == NULL)
+	if (!str)
 		return (0);
 	i = 0;
 	while (backup[i] != '\n' && backup[i] != '\0')
@@ -57,60 +32,43 @@ char	*give_line(char *backup)
 		i++;
 	}
 	if (backup[i] == '\n')
-		str[i++] = '\n';
-	str[i] = '\0';
+		str[i] = '\0';
 	return (str);
 }
 
 char	*cut_line(char *backup)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
 	char	*str;
 
 	i = 0;
-	j = 0;
-	while (backup[i] != '\0' && backup[i] != '\n')
+	while (backup[i] != '\n' && backup[i] != '\0')
 		i++;
-	if (backup[i] == '\0')
-	{
-		free(backup);
-		return (0);
-	}
-	str = malloc(sizeof(char) * (sizeof(backup) - i + 1));
-	if (str == NULL)
-		return (0);
-	i++;
-	while (backup[i] != '\0')
-		str[j++] = backup[i++];
-	str[j] = '\0';
+	if (backup[i] == '\n')
+		i++;
+	str = ft_strdup(&backup[i]);
+	free(backup);
 	return (str);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*backup;
+	char		readstr[BUFFER_SIZE + 1];
+	static char	*backup[OPEN_MAX];
 	char		*str;
+	int			readsize;
 
-	if (BUFFER_SIZE <= 0 && fd < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (0);
-	get_str(fd, backup);
-	if (backup == NULL)
+	while (1)
 	{
-		free(backup);
-		return (0);
+		readsize = read(fd, readstr, BUFFER_SIZE);
+		if (readsize <= 0)
+			break ;
+		readstr[readsize] = '\0';
+		backup[fd] = ft_strjoin(backup[fd], readstr);
 	}
-	str = give_line(backup);
-	backup = cut_line(backup);
+	str = make_line(backup[fd]);
+	backup[fd] = cut_line(backup[fd]);
 	return (str);
-}
-
-#include <fcntl.h>
-int main()
-{
-	int fd;
-	fd = open("abc.txt", O_RDONLY);
-	printf("%d\n%s\n", fd, get_next_line(fd));
-	printf("%d\n%s\n", fd, get_next_line(fd));
-	printf("%d\n%s\n", fd, get_next_line(fd));
 }
