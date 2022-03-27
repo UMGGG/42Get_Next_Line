@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/23 00:27:53 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/03/27 17:57:00 by jaeyjeon         ###   ########.fr       */
+/*   Created: 2022/03/27 17:54:59 by jaeyjeon          #+#    #+#             */
+/*   Updated: 2022/03/27 17:56:14 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*make_line(char *backup)
 {
