@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:54:10 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/03/25 17:05:21 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:20:27 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,29 @@ size_t	ft_strlen(const char *s)
 		len++;
 	}
 	return (len);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	if (s == NULL)
+		return (0);
+	while (1)
+	{
+		if (s[i] == (char)c)
+			return ((char *)s + i);
+		if (s[i] == '\0')
+		{
+			if ((char)c == '\0')
+				return ((char *)s + i);
+			else
+				break ;
+		}
+		i++;
+	}
+	return (0);
 }
 
 char	*ft_strdup(char *s1)

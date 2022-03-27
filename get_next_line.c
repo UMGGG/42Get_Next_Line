@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:27:53 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/03/25 19:02:41 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:24:24 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ char	*get_next_line(int fd)
 	while (1)
 	{
 		readsize = read(fd, readstr, BUFFER_SIZE);
-		printf("%d", readsize);
 		if (readsize <= 0)
 			break ;
 		readstr[readsize] = '\0';
