@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:55:22 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/04/06 20:45:31 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:07:59 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_next_line(int fd);
 char	*ft_strdup(char *s1);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
-char	*make_line(char *backup);
+char	*make_line(char *backup, int i);
 char	*cut_line(char *backup);
 size_t	ft_strlen(const char *s);
 

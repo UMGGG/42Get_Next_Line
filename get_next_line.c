@@ -6,39 +6,37 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:27:53 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/04/06 20:45:09 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:18:10 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*make_line(char *backup)
+char	*make_line(char *backup, int j)
 {
-	int		i;
 	char	*str;
 
-	i = 0;
 	if (backup == NULL)
 		return (NULL);
 	if (backup[0] == '\0')
 		return (NULL);
-	while (backup[i] != '\n' && backup[i] != '\0')
-		i++;
-	if (backup[i] == '\n')
-		str = malloc(sizeof(char) * (i + 2));
+	while (backup[j] != '\n' && backup[j] != '\0')
+		j++;
+	if (backup[j] == '\n')
+		str = malloc(sizeof(char) * (j + 2));
 	else
-		str = malloc(sizeof(char) * (i + 1));
+		str = malloc(sizeof(char) * (j + 1));
 	if (!str)
 		return (0);
-	i = 0;
-	while (backup[i] != '\n' && backup[i] != '\0')
+	j = 0;
+	while (backup[j] != '\n' && backup[j] != '\0')
 	{
-		str[i] = backup[i];
-		i++;
+		str[j] = backup[j];
+		j++;
 	}
-	if (backup[i] == '\n')
-		str[i++] = '\n';
-	str[i] = '\0';
+	if (backup[j] == '\n')
+		str[j++] = '\n';
+	str[j] = '\0';
 	return (str);
 }
 
@@ -70,7 +68,9 @@ char	*get_next_line(int fd)
 	static char	*backup[OPEN_MAX];
 	char		*str;
 	int			readsize;
+	int			j;
 
+	j = 0;
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= OPEN_MAX)
 		return (0);
 	while (!ft_strchr(backup[fd], '\n'))
@@ -81,7 +81,7 @@ char	*get_next_line(int fd)
 		readstr[readsize] = '\0';
 		backup[fd] = ft_strjoin(backup[fd], readstr);
 	}
-	str = make_line(backup[fd]);
+	str = make_line(backup[fd], j);
 	backup[fd] = cut_line(backup[fd]);
 	return (str);
 }
