@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:27:53 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/04/07 16:18:10 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/04/07 18:37:13 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*cut_line(char *backup)
 
 char	*get_next_line(int fd)
 {
-	char		readstr[BUFFER_SIZE + 1];
+	char		*readstr;
 	static char	*backup[OPEN_MAX];
 	char		*str;
 	int			readsize;
@@ -72,6 +72,9 @@ char	*get_next_line(int fd)
 
 	j = 0;
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= OPEN_MAX)
+		return (0);
+	readstr = malloc((sizeof(char) * (BUFFER_SIZE + 1)));
+	if (!readstr)
 		return (0);
 	while (!ft_strchr(backup[fd], '\n'))
 	{
@@ -83,5 +86,6 @@ char	*get_next_line(int fd)
 	}
 	str = make_line(backup[fd], j);
 	backup[fd] = cut_line(backup[fd]);
+	free(readstr);
 	return (str);
 }
